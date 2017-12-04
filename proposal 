@@ -1,0 +1,101 @@
+Project Orcha:
+[Orchestra]
+
+Goal:
+The goal of this research project is to make music sheets searchable. Using classification methods, we train the machine from recognizing individual notes to reading the entire music sheets and making them searchable. By doing so we are able to investigate certain music methodologies in the evolution of music composing. We are able to identify the transition of music genre as well as the composing styles throughout the history of music. At the end of the semester we aim to have an algorithm that recognize individual notes, chords, as well as notes on the staffs.
+
+Research on Similar Projects:
+Note: it seems to me that the market need this product.
+AnthemScore: create music sheet with a music input file (e.g. mp3) by using CNN.(2016)
+	Similarly: Transcribe! (though dk how this works, don’t think it uses deal with AI)
+SnapNPlay: read music note line and replay the note with given instrument choices. (last update 2015)
+	We shall email this developer, curious how did he do this. DK whether AI involves
+Gocen: a hand-held device made by a group of student in Japan that can read the hand-written music sheet and replay them via piano. To do so, they use the device to scan individual staff of the music slowly so that the machine can distinguish the dot in the note. (note, no flag or stem can be recognized) So far, Gocen can only read single note; no chord can be read. Also, the program can not detect the rhythm of the music, which means the speed of the scan determine the rhythm. We are not sure how does the program works for the most part. (2013)
+
+
+Current Progress:
+Oct. 31st, 2017
+We have met with Audra and discussed details about the projects with her. So far we have started the data gathering process and will be building a database of 300-400 individual note without staffs by the end of this week. The compensation is currently negotiated at $12 per hour paid in the form of stipend. (drafting email to formalize it)
+
+Constructing Database:
+Since there is no database for our project existed, we have to build it by our own. We aim to have 300 to 400 data sets to complete the first stage Rhythm Recognition. The database will keep growing as the project keeps progressing. Our database will contain information in binary with 1=true and 0=false.
+
+file_name
+length
+rest?(1/0)
+dotted?
+natual_sign?
+flat?
+sharp?
+source
+
+
+Build platform:
+MatLab 2017a
+
+Building Stage:
+1.0 Rhythm Recognition
+1.1
+Recognizing single note and break without staffs
+Recognizing Treble and Bass Clef.
+1.2
+Recognizing connected note without staffs
+2.0 Pitch Recognition
+	2.1
+Recognizing notes and breaks on staffs
+3.0 Slicing and concatenating Music Sheet
+4.0 Read Music Sheet with designed output
+
+
+
+
+Drafting Email (Audra Payment)
+
+Hi Audra,
+
+We are comrade now. :D
+
+Again, nice to have you in the team to facilitate this project! In this email I’m going to formalize what we are doing/going to do.
+
+With the support from CS department, we will be able to compensate you $12/hour for all the work that you did/will be doing. And of course, the stipend will be in the form of gift card or cash. The estimation per week is about 5 hours, and of course it fluctuates. And we would like you to fill out a timesheet at the end of each week to indicate your working hours. Also, we are also expecting you join our weekly meeting which scheduled at Tuesday 4:30. Besides all the data collection time that you work alone, feel free to stop by when we are working together and learn some more about machine learning and Neural Network!
+
+Feel free to let us know any further question remaining about logistics.
+
+Best,
+Bo & Lijia
+
+
+
+Lijia’s Project Proposal
+
+This project aims to use Neural Network to recognize music sheet as a small step toward building a searchable music sheet app. According to our research, the combination of AI and music has been popular in the recent years. However, most researches/projects focus on implementing AI to generate music such as Amper Music, Pop Gun, Flow Machines by Google and Magenta. Besides, there are only several project focus on reading music sheet, which related to our goal:
+
+AnthemScore: create music sheet with a music input file (e.g. mp3) by using CNN.(2016)
+	Similarly: Transcribe! (though dk how this works, don’t think it uses deal with AI)
+SnapNPlay: read music note line and replay the note with given instrument choices. (last update 2015)
+Gocen: a hand-held device made by a group of student in Japan that can read the hand-written music sheet and replay them via piano. To do so, they use the device to scan individual staff of the music slowly so that the machine can distinguish the dot in the note. (note, no flag or stem can be recognized) So far, Gocen can only read single note; no chord can be read. Also, the program can not detect the rhythm of the music, which means the speed of the scan determine the rhythm. We are not sure how does the program works for the most part. (2013)
+
+But, the projects discussed above are not optimize enough to obtain our goal. Most are lack in automation. We therefore believe that this project is worth to investigate, and potentially, the project can be beneficial to music scholars.
+
+Since this is a big project, we do not think the goal can be achieved by the end of the semester. We’d be happy with any progress. So we sliced the project unto below segments:
+1.0 Rhythm Recognition
+1.1
+Recognizing single note and break without staffs
+Recognizing Treble and Bass Clef.
+1.2
+Recognizing connected note without staffs
+2.0 Pitch Recognition
+	2.1
+Recognizing notes and breaks on staffs
+3.0 Slicing and concatenating Music Sheet
+4.0 Read Music Sheet with designed output
+
+To do obtain the goal, there are multiple obstacles that we detected. First and foremost, we do not find an appropriate dataset that is close to our objective. Common dataset on music are often in two set either include massive unlabeled music sheet or labeled audio file such as  NSynth. Thus after consulting department chair, we are supported to hire another student to build the database. Details of this database see Bo’s proposal/further updates.
+
+Beside, the music sheet itself is a continuous set of data comparing to an image or text. In another word, the input pixels only make sense when reading in a meaningful manner. To resolve this problem, we plan to use the Neural Network to slice the sheet into individual staff line and combine them into one long image before recognizing continuous music.
+
+All in all, the project is on the correct tract at the moment. More information will be updated in the coming weeks.
+
+Inspiring things:
+AI generating Jazz, with good explanation and techniques such as *.mid file and Pixel-CNN? that we can implement.
+Transfer Learning

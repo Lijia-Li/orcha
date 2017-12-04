@@ -20,7 +20,7 @@ For more details feel free to watch this video about Computer Vision: https://ww
 
 *****OrchaSearch*****
 
-OrchaSearch also uses computer vision to detect features of your input and search for similar objects in another image. I’m still testing it but so far my tune works well. I can load a snippet of “For Elise” with different signatures and the program can locate where it is in another version of the “For Elise”
+OrchaSearch also uses computer vision to detect features of your input and search for similar objects in another image. I�m still testing it but so far my tune works well. I can load a snippet of “For Elise” with different signatures and the program can locate where it is in another version of the “For Elise”
 
 Next Step in OrchaSearch:
 Identify one snippets among many music sheets. Output the music sheets with the highest match.

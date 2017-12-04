@@ -1,5 +1,5 @@
 % Read snippet image
-boxImage = rgb2gray(imread('orchaSearch/Snippet/Sonata_14_snippet.png'));
+boxImage = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
 figure;
 imshow(boxImage);
 title('Image of a melody snippet');

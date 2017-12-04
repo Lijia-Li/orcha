@@ -3,7 +3,7 @@ testingData = imageSet('MLData/Testing','recursive');
 I = read(trainingData(4),2);
 % imshow(I)
 
-% Prepare Training Imge Sets
+% Prepare Training Image Sets
 minSetCount = min([trainingData.Count]);
 trainingSets = partition(trainingData, minSetCount, 'randomize');
 [trainingSets.Count]
@@ -11,7 +11,7 @@ trainingSets = partition(trainingData, minSetCount, 'randomize');
 % Create a Visual Vocabulary from Training Data
 bag = bagOfFeatures(trainingSets, 'VocabularySize',100,'PointSelection','Detector');
 
-% Display Visual Word Occurrence Histograms
+% % Display Visual Word Occurrence Histograms
 % img = read(trainingData(1),randi(trainingData(1).Count));
 % featureVector = encode(bag, img);
 % figure

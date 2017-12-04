@@ -1,3 +1,4 @@
+% Hello Lijia I miss you!
 % Read snippet image
 boxImage = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
 figure;

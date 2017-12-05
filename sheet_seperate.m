@@ -17,6 +17,7 @@ end
 
 % detect features 
 corners = detectHarrisFeatures(sheetImage, 'MinQuality',0.5);
+figure
 imshow(sheetImage); 
 hold on;
 plot(corners.selectStrongest(50));

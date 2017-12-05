@@ -1,4 +1,3 @@
-% Hello Lijia I miss you!
 % Read snippet image
 boxImage = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
 figure;
@@ -32,6 +31,9 @@ plot(selectStrongest(scenePoints, 200));
 % Extract feature descriptors at the interest points in both images.
 [boxFeatures, boxPoints] = extractFeatures(boxImage, boxPoints,'method','kaze');
 [sceneFeatures, scenePoints] = extractFeatures(sceneImage, scenePoints,'method','kaze');
+% [boxFeatures, boxPoints] = extractFeatures(boxImage, boxPoints,'method','kaze');
+% [sceneFeatures, scenePoints] = extractFeatures(sceneImage, scenePoints,'method','kaze');
+
 
 % Match the features using their descriptors. 
 boxPairs = matchFeatures(boxFeatures, sceneFeatures,'MatchThreshold',8,'Method','Approximate');

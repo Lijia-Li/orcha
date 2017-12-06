@@ -1,48 +1,48 @@
 % Read Images
-img = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
 I1 = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
 I2 = rgb2gray(imread('orchaSearch/Scene/melody_scene.jpeg'));
 
-% Extract Hog Features and generate hog visualization. This is just a test
-% to help understand what hog extraction does.
-[featureVector,hogVisualization] = extractHOGFeatures(img);
-figure;
-imshow(img); 
-hold on;
-plot(hogVisualization);
+% hand drawn version
+% I1 = rgb2gray(imread('orchaSearch/Snippet/hand_snippet.jpg'));
 
-% Here is the hog extraction using CellSize. This is what we should focus
-% on. The cell size right now is [5 5], you can play around with it and see
-% the best cell size. 
-% The following blocks are just tests to visualize what HOG extraction using CellSize.
-[hog1,visualization] = extractHOGFeatures(I1,'CellSize',[5 5]);
-figure;
-subplot(1,2,1);
-imshow(I1);
-subplot(1,2,2);
-plot(visualization);
 
-[hog2,visualization] = extractHOGFeatures(I2,'CellSize',[5 5]);
-figure;
-subplot(1,2,1);
-imshow(I2);
-subplot(1,2,2);
-plot(visualization);
+% Visualize to test what cell size is the best fit
+HOGCellSizeTest(I2);
 
-% This is the real work. where we use HOGFeatures extracted based on
-% Cellsize to match features. Just like the previous orchaSearch, this one
-% use similar syntax and architecture.
-[boxFeatures,boxPoints] = extractHOGFeatures(I1,'CellSize',[5 5]);
-[sceneFeatures,scenePoints] = extractHOGFeatures(I2,'CellSize',[5 5]);
 
-% [BUG EXPECTED]
+% Visualize orgion image's HOG features
+[~, boxVisualization] = extractHOGFeatures(I1,'CellSize',[4 4]);
+[~,sceneVisualization] = extractHOGFeatures(I2,'CellSize',[4 4]);
+HOGVisualization(I1, boxVisualization, 'snippet HOG visualization', 1);
+HOGVisualization(I2, sceneVisualization, 'scene HOG visualization', 1);
 
-% MatchFeature to compare the results from the snippet and scene images.
-% However, you will certainly run into an error message saying
-% "Expected FEATURES1 and FEATURES2 to have the same number of columns."
-% You may want to look at the boxFeatures and scnenFeatures, where they do
-% have different column sizes due to HOG extraction. We need to tweak the
-% code that make them identical column size.
 
-% Further research required in HOGextraction and matchFeatures.
-boxPairs = matchFeatures(boxFeatures, sceneFeatures,'MatchThreshold',8,'Method','Approximate');
+% detect KAZE features (bulbs) from the image. 
+% These features turns out to be the only ones we cares about. 
+% In another word, this will ignore the lines of the music sheet. 
+boxPoints = detectKAZEFeatures(I1);
+scenePoints = detectKAZEFeatures(I2);
+
+
+% extract HOG feature around the points
+[boxVectors,validBoxPoints,boxptsVis] = extractHOGFeatures(I1,...
+    selectStrongest(boxPoints,20),'CellSize',[4 4]);
+[sceneVectors,validScenePoints, sceneptsVis] = extractHOGFeatures(I2,...
+    scenePoints,'CellSize',[4 4]);
+
+
+% Visualize the HOG features around the points
+HOGVisualization(I1, boxptsVis, 'I1 strongest 10 HOG points', 0)
+HOGVisualization(I2, sceneptsVis, 'I2 Important HOG points', 0)
+
+
+% match Features of two Picures and Visualize them
+Pairs = matchFeatures(boxVectors, sceneVectors,'MatchThreshold',8,...
+'Method','Approximate');
+
+matchedOriginal  = validBoxPoints(Pairs(:,1));
+matchedDistorted = validScenePoints(Pairs(:,2));
+
+figure
+showMatchedFeatures(I1, I2, matchedOriginal, matchedDistorted, 'montage')
+title('Candidate matched points (including outliers)')

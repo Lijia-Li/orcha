@@ -1,20 +1,20 @@
 % Read Images
-I1 = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
-I2 = rgb2gray(imread('orchaSearch/Scene/melody_scene.jpeg'));
+% I1 = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
+I2 = rgb2gray(imread('orchaSearch/Scene/elice_scene.png'));
 
 % hand drawn version
-% I1 = rgb2gray(imread('orchaSearch/Snippet/hand_snippet.jpg'));
+I1 = rgb2gray(imread('orchaSearch/Snippet/elice_snippet.png'));
 
 
 % Visualize to test what cell size is the best fit
-HOGCellSizeTest(I2);
+% HOGCellSizeTest(I2);
 
 
 % Visualize orgion image's HOG features
 [~, boxVisualization] = extractHOGFeatures(I1,'CellSize',[4 4]);
 [~,sceneVisualization] = extractHOGFeatures(I2,'CellSize',[4 4]);
-HOGVisualization(I1, boxVisualization, 'snippet HOG visualization', 1);
-HOGVisualization(I2, sceneVisualization, 'scene HOG visualization', 1);
+% HOGVisualization(I1, boxVisualization, 'snippet HOG visualization', 1);
+% HOGVisualization(I2, sceneVisualization, 'scene HOG visualization', 1);
 
 
 % detect KAZE features (bulbs) from the image. 
@@ -23,12 +23,11 @@ HOGVisualization(I2, sceneVisualization, 'scene HOG visualization', 1);
 boxPoints = detectKAZEFeatures(I1);
 scenePoints = detectKAZEFeatures(I2);
 
-
 % extract HOG feature around the points
 [boxVectors,validBoxPoints,boxptsVis] = extractHOGFeatures(I1,...
-    selectStrongest(boxPoints,20),'CellSize',[4 4]);
+    selectStrongest(boxPoints,floor(length(boxPoints)*0.15)),'CellSize',[4 4]);
 [sceneVectors,validScenePoints, sceneptsVis] = extractHOGFeatures(I2,...
-    scenePoints,'CellSize',[4 4]);
+    selectStrongest(scenePoints,floor(length(scenePoints)*0.15)),'CellSize',[4 4]);
 
 
 % Visualize the HOG features around the points
@@ -37,7 +36,7 @@ HOGVisualization(I2, sceneptsVis, 'I2 Important HOG points', 0)
 
 
 % match Features of two Picures and Visualize them
-Pairs = matchFeatures(boxVectors, sceneVectors,'MatchThreshold',8,...
+Pairs = matchFeatures(boxVectors, sceneVectors,'MatchThreshold',80,...
 'Method','Approximate');
 
 matchedOriginal  = validBoxPoints(Pairs(:,1));

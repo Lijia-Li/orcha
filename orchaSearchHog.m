@@ -1,9 +1,9 @@
 % Read Images
 % I1 = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
-I2 = rgb2gray(imread('orchaSearch/Scene/elice_scene.png'));
+I2 = rgb2gray(imread('orchaSearch/Scene/elice_scene2.png'));
 
 % hand drawn version
-I1 = rgb2gray(imread('orchaSearch/Snippet/elice_snippet.png'));
+I1 = rgb2gray(imread('orchaSearch/Snippet/elice_snippet2.png'));
 
 
 % Visualize to test what cell size is the best fit

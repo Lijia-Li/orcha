@@ -1,0 +1,66 @@
+% Create empty array to track the amount of pairs between snippets and
+% scene images.
+pairList = [];
+
+% Read snippet image
+boxImage = rgb2gray(imread('orchaSearch/Snippet/elice_snippet.png'));
+figure;
+imshow(boxImage);
+title('Image of a melody snippet');
+
+ % Scene image is the complete music sheet in image formats.
+ % Read full scene image one by on in a directory folder. Return a list of
+ % file names and their directory address. The sceneImage the reads every
+ % single scene images.
+ 
+dinfo = dir('orchaSearch/Scene');
+    names_cell = {dinfo.name};
+    imageAddress = strcat('orchaSearch/Scene', '/', names_cell);
+    imageAddress(:,1:2) = [];
+    
+for i = 1:size
+ 
+    
+    sceneImage = rgb2gray(imread(char(imageAddress(2))));
+
+    figure; 
+    imshow(sceneImage);
+    title('Image of a complete melody');
+
+    % Detect feature points in both images.
+    boxPoints = detectSURFFeatures(boxImage,'NumScaleLevels',4);
+    scenePoints = detectSURFFeatures(sceneImage);
+
+    % Visualize the strongest feature points found in the reference image.
+    figure; 
+    imshow(boxImage);
+    title('100 Strongest Feature Points from Box Image');
+    hold on;
+    plot(selectStrongest(boxPoints, 100));
+
+    % Visualize the strongest feature points found in the target image.
+    figure; 
+    imshow(sceneImage);
+    title('200 Strongest Feature Points from Scene Image');
+    hold on;
+    plot(selectStrongest(scenePoints, 200));
+
+    % Extract feature descriptors at the interest points in both images.
+    [boxFeatures, boxPoints] = extractFeatures(boxImage, boxPoints,'method','kaze');
+    [sceneFeatures, scenePoints] = extractFeatures(sceneImage, scenePoints,'method','kaze');
+    % [boxFeatures, boxPoints] = extractFeatures(boxImage, boxPoints,'method','kaze');
+    % [sceneFeatures, scenePoints] = extractFeatures(sceneImage, scenePoints,'method','kaze');
+
+
+    % Match the features using their descriptors. 
+    boxPairs = matchFeatures(boxFeatures, sceneFeatures,'MatchThreshold',8,'Method','Approximate');
+    numPairs = size(boxPairs,1);
+    pairList = [pairList;numPairs];
+
+    % Display putatively matched features. 
+    matchedBoxPoints = boxPoints(boxPairs(:, 1), :);
+    matchedScenePoints = scenePoints(boxPairs(:, 2), :);
+    figure;
+    showMatchedFeatures(boxImage, sceneImage, matchedBoxPoints, ...
+        matchedScenePoints, 'montage');
+    title('Putatively Matched Points (Including Outliers)');

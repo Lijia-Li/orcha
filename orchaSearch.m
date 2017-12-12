@@ -36,8 +36,15 @@ for i = 1:sceneSize
     sceneImage = rgb2gray(imread(char(imageAddress(i))));
 
     % Detect feature points in scene images.
-    scenePoints = detectSURFFeatures(sceneImage);
-    
+    scenePoints = detectKAZEFeatures(sceneImage);
+ 
+%     % Visualize the strongest feature points found in the target image.
+%     figure; 
+%     imshow(sceneImage);
+%     title('200 Strongest Feature Points from Scene Image');
+%     hold on;
+%     plot(selectStrongest(scenePoints, 200));
+
     % Extract feature descriptors at the interest points in both images.
     [sceneFeatures, scenePoints] = extractFeatures(sceneImage, scenePoints,'method','kaze');
     

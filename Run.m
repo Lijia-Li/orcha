@@ -6,29 +6,32 @@ pause(1)
 disp('-----------------------------------------------------')
 disp("BEFORE WE BEGINS")
 disp("Please install the Computer Vision Tool Box from MathWorks")
-disp('-----------------------------------------------------')
-pause(1)
-disp('1.Orcha Vision')
-disp('2.OrchaHog Search')
-disp('3.Orcha Search')
-
-prompt = 'Please input the number of the program (e.g. 1):  ';
-choice = input(prompt);
-if choice == 1
-    orchaVision;
-elseif choice == 2
-    orchaSearchHog;
-elseif choice == 3
-    disp('You have the following snippets to choose from:')
-    disp("'orchaSearch/Snippet/elice_snippet2.png'")
-    disp("'orchaSearch/Snippet/tercet.png'")
-    disp("'orchaSearch/Snippet/scale.png'")
+while 1
     disp('-----------------------------------------------------')
-    prompt = 'please copy and paste the full directory, including the single quotation mark:   ';
-    snip = input(prompt);
-    orchaSearch;
-else
-    disp('Please only enter 1, 2, or 3 as a number.')
+    pause(1)
+    disp('1.Orcha Vision')
+    disp('2.OrchaHog Search')
+    disp('3.Orcha Search')
+    disp('4.quit')
+    prompt = 'Please input the number of the program (e.g. 1):  ';
+    choice = input(prompt);
+    if choice == 1
+        orchaVision;
+    elseif choice == 2
+        orchaSearchHog;
+    elseif choice == 3
+        disp('You have the following snippets to choose from:')
+        disp("'orchaSearch/Snippet/elice_snippet2.png'")
+        disp("'orchaSearch/Snippet/tercet.png'")
+        disp("'orchaSearch/Snippet/scale.png'")
+        disp('-----------------------------------------------------')
+        prompt = 'please copy and paste the full directory, including the single quotation mark:   ';
+        snip = input(prompt);
+        orchaSearch;
+    elseif choice == 4
+        break
+    else
+        disp('Please only enter 1, 2, 3, or 4 as a number.')
+    end
 end
-
     

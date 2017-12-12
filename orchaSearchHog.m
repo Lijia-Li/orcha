@@ -1,13 +1,9 @@
 % Read Images
-% I1 = rgb2gray(imread('orchaSearch/Snippet/melody_snippet.jpeg'));
-I2 = rgb2gray(imread('orchaSearch/Scene/elice_scene2.png'));
-
-% hand drawn version
-I1 = rgb2gray(imread('orchaSearch/Snippet/elice_snippet2.png'));
-
+I1 = rgb2gray(imread('orchaSearch/Snippet/elice_snippet.png'));
+I2 = rgb2gray(imread('orchaSearch/Scene/elice_scene.png'));
 
 % Visualize to test what cell size is the best fit
-HOGCellSizeTest(I2);
+% HOGCellSizeTest(I2);
 
 
 % Visualize orgion image's HOG features
@@ -20,7 +16,7 @@ HOGCellSizeTest(I2);
 boxPoints = detectKAZEFeatures(I1);
 scenePoints = detectKAZEFeatures(I2);
 
-% extract HOG feature around the points
+% extract HOG feature around the strongest 15% points
 [boxVectors,validBoxPoints,boxptsVis] = extractHOGFeatures(I1,...
     selectStrongest(boxPoints,floor(length(boxPoints)*0.15)),'CellSize',[4 4]);
 [sceneVectors,validScenePoints, sceneptsVis] = extractHOGFeatures(I2,...
@@ -28,8 +24,8 @@ scenePoints = detectKAZEFeatures(I2);
 
 
 % Visualize the HOG features around the points
-HOGVisualization(I1, boxptsVis, 'I1 strongest 10 HOG points', 0)
-HOGVisualization(I2, sceneptsVis, 'I2 Important HOG points', 0)
+HOGVisualization(I1, boxptsVis, 'I1 strongest 15 percent HOG points', 0)
+HOGVisualization(I2, sceneptsVis, 'I2 strongest 15 percent HOG points', 0)
 
 
 % match Features of two Picures and Visualize them

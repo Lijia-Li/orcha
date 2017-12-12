@@ -10,6 +10,7 @@ function HOGCellSizeTest(image)
 
 % Show the original image
 figure;
+title('HOG Cell Size Test')
 subplot(2,3,1:3); imshow(image);
 
 % Visualize the HOG features

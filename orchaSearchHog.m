@@ -7,15 +7,12 @@ I1 = rgb2gray(imread('orchaSearch/Snippet/elice_snippet2.png'));
 
 
 % Visualize to test what cell size is the best fit
-% HOGCellSizeTest(I2);
+HOGCellSizeTest(I2);
 
 
 % Visualize orgion image's HOG features
 [~, boxVisualization] = extractHOGFeatures(I1,'CellSize',[4 4]);
 [~,sceneVisualization] = extractHOGFeatures(I2,'CellSize',[4 4]);
-% HOGVisualization(I1, boxVisualization, 'snippet HOG visualization', 1);
-% HOGVisualization(I2, sceneVisualization, 'scene HOG visualization', 1);
-
 
 % detect KAZE features (bulbs) from the image. 
 % These features turns out to be the only ones we cares about. 
@@ -45,3 +42,4 @@ matchedDistorted = validScenePoints(Pairs(:,2));
 figure
 showMatchedFeatures(I1, I2, matchedOriginal, matchedDistorted, 'montage')
 title('Candidate matched points (including outliers)')
+

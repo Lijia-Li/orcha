@@ -11,6 +11,12 @@ trainingSets = partition(trainingData, minSetCount, 'randomize');
 % Create a Visual Vocabulary from Training Data
 bag = bagOfFeatures(trainingSets, 'VocabularySize',100,'PointSelection','Detector');
 
+% Train a classifier to discriminate between categories
+categoryClassifier = trainImageCategoryClassifier(trainingData, bag);
+
+% Evaluate Classifier Performance on Testing Set
+confMatrix = evaluate(categoryClassifier, testingData);
+
 % % Display Visual Word Occurrence Histograms
 % img = read(trainingData(1),randi(trainingData(1).Count));
 % featureVector = encode(bag, img);
@@ -39,8 +45,3 @@ bag = bagOfFeatures(trainingSets, 'VocabularySize',100,'PointSelection','Detecto
 % xlabel('Visual Word Index');
 % ylabel('Frequency of occurence');
 
-% Train a classifier to discriminate between categories
-categoryClassifier = trainImageCategoryClassifier(trainingData, bag);
-
-% Evaluate Classifier Performance on Testing Set
-confMatrix = evaluate(categoryClassifier, testingData);
